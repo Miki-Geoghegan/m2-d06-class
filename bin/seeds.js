@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const Book = require('../models/Book.model');
+// you have imported mongoose and also the book model
 
 // const DB_NAME = 'library-project';
 
@@ -14,6 +15,7 @@ const Book = require('../models/Book.model');
 // require database configuration
 require('../configs/db.config');
 
+// the below is the array for the database, if you want to make a change to the data, you can do it here
 const books = [
   {
     title: 'The Hunger Games',
@@ -87,11 +89,22 @@ const books = [
   }
 ];
 
-Book.create(books)
+// at the end of the data, you create a book and then close the connection to the database
+Book.deleteMany()
+.then(deletedBooks => {
+  console.log(`Deleted ${deletedBooks} books`);
+})
+.then(
+  Book.insertMany(books)
   .then(booksFromDB => {
     console.log(`Created ${booksFromDB.length} books`);
+    console.log(booksFromDB)
     mongoose.connection.close();
   })
   .catch(err =>
     console.log(`An error occurred while getting books from the DB: ${err}`)
-  );
+  ))
+
+// to make this in the database, go to the terminal and write node seeds.js (make sure you are in the correct folder)
+
+// seeds file often to have a dummy database to check that things are working and test things out

@@ -28,12 +28,18 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
-// const index = require('./routes/index');
-// app.use('/', index);
+// to connect a router within an app we need to use app.use on line 33 (telling the application that whenever we look for the home folder, we need to look for the indexRouter)
+// we are requiring routes/index - this is a model file (not intended to work on its own, needs to be exported)
+const indexRouter = require('./routes/index.routes');
+app.use('/', indexRouter);
+// previously was communicating directly with the / here (the home route, now forwarding this information to the index.routes.js page for it to be used)
 //      |  |  |
 //      |  |  |
 //      V  V  V
-app.use('/', require('./routes/index.routes'));
-app.use('/', require('./routes/book.routes'));
+const booksRouter = require('./routes/book.routes')
+app.use('/books', booksRouter); 
+// this shows the link with with the book.routes file and tells app.js to use it
+// telling app.js to use the book.routes file for everything in the browser when it is /books
 
+// index router mansers the main route, books router refers to the books route
 module.exports = app;
