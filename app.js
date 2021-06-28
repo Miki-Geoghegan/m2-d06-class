@@ -39,7 +39,7 @@ app.use('/', indexRouter);
 const booksRouter = require('./routes/book.routes')
 app.use('/books', booksRouter); 
 // this shows the link with with the book.routes file and tells app.js to use it
-// telling app.js to use the book.routes file for everything in the browser when it is /books
+// telling app.js to use the book.routes file for everything in the browser (all URLS) starting with /books
 
 // index router mansers the main route, books router refers to the books route
 module.exports = app;
