@@ -5,7 +5,11 @@ const bookSchema = new Schema(
   {
     title: String,
     description: String,
-    author: String,
+    author: {type: Schema.Types.ObjectId, ref: "Author"}, // this is saying to mongoose that we want the author to be a special type of string
+    // we will only  see a random id string in the database, we use Schema.Types.ObjectId to tell mongo that this string is a reference to an "Author"
+    // taken embedded information and want to make it part of the database
+    // Schema.Types.ObjectId links to the author model created, it links to an author through their Id
+    // type and reference are required in this format, you can also add other things
     rating: Number
   },
   {

@@ -2,7 +2,9 @@
 
 <h1>{{title}}</h1>
 <hr>
-<p>Written by: {{author}}</p>
+<p>Written by: {{author.name}}</p> {{!-- this needs to be an object, as the author is now an object (the data type is a random string but mongoDB understands the string and uses the model to see it as an object)
+HOWEVER for this purpose the type is still a random string. We need to make it an object to go into it with author.name
+There is sugar for this: .populate() - this goes into the database, inspects an id, takes the information and makes it into a JS object  --}}
 <p>Summary: {{description}}</p>
 <p>Rating: {{rating}}/10</p>
 <hr>

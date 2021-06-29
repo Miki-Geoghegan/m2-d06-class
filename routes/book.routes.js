@@ -35,6 +35,7 @@ router.post('/add', (req, res) => {
 
  // next need to create a book:
  Book.create({title, description, author, rating}) // this is saying mongoose, create a book with this object inside it
+ // it is referring to req.body.title, req.body.description, req.body.author and req.body.rating - this is sugar
  .then(createdBook => console.log(createdBook))
  .catch (err => console.log(err)) // after creating the book, it is important to redirect the user back to the books i.e.:
  res.redirect('/books')
@@ -81,6 +82,9 @@ router.get('/delete/:id', (req, res) => {
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   Book.findById(id)
+  .populate('author') // This is a promise, it goes into the database, reads the id and transforms the random string (id )into a JS object
+  //'author' refers the name of the field you want to populate (see book-details.hbs file)
+  // by using .populate(), you can treat the author as a real JS object, rather than a random string (id)
   .then( bookFromCollection => res.render("book-details" , bookFromCollection))
 });
 
