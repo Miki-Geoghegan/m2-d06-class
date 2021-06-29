@@ -11,7 +11,19 @@
 
   <br>
   <label for=''>Author</label>
-  <input type='text' name='author'>
+  <select name="author">
+    <option disable selected value="">Select an author</option>
+    {{#each allAuthors}}
+      <option value="{{this._id}}"> {{this.name}} {{this.surname}}</option>
+    {{/each}}
+  </select>
+  {{!-- need to create a choice/ dropdown menu to click one option from the database: the input becomes an options 
+  used to be this  <input type='text' name='author'>, now the above
+  allAuthors refers to book.routes.js allAuthors in creating a book--}}
+
+    {{!-- The first option "disable selected value" is preselected (the default) and gives you the option to not include an author
+    can put text in there i.e. Select and author OR can add a placeholder in there--}}
+  
 
   <br>
   <label for=''>Rating</label>

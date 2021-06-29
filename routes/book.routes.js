@@ -2,10 +2,12 @@
 // APP NEEDS TO KNOW YOU CREATED A NEW ROUTE FILE, THAT'S THE ONLY WAY FOR IT TO KNOW WHICH ROUTES YOU WANT TO HIT
 
 const express = require('express');
+const Author = require('../models/author.model');
 const router = express.Router(); // this is the router class inside the express library
 
 // ********* require Book model in order to use it *********
-const Book = require('../models/Book.model'); // this is importing the book model
+const Book = require('../models/Book.model');
+const Author = require('../models/author.model'); // this is importing the book model
 
 // ****************************************************************************************
 // GET route to display all the books - goal to display all books in the database
@@ -44,10 +46,12 @@ router.post('/add', (req, res) => {
 // by deciding that the user will send a post form, we access the body and from here we can get the field we need
 
 router.get('/add', (req, res) => { // we are referring to the books.hbs file, we use GET because we have used a link and can only use GET with links
-  res.render('books-add')
+  Author.find()
+  .then(allAuthors => res.render('books-add', {allAuthors}))
 })
 // think of the route and the name ('books-add'), then create a file with that name for it to relate to
-
+// after making the author object (in model, we need to give access to all of the authors that exist in the database {allAuthors})
+// we need to send this to our form
 
 
 
@@ -87,6 +91,18 @@ router.get('/:id', (req, res) => {
   // by using .populate(), you can treat the author as a real JS object, rather than a random string (id)
   .then( bookFromCollection => res.render("book-details" , bookFromCollection))
 });
+
+
+//{uglyString} - the curly brackets create an object, which has a property named uglyString and it's value is the same as whatever is stored in the variable uglyString i.e. {uglyString: uglyString}
+// this is the same as new Object()
+//{uglyString} should not be used to manipulate database objects
+
+
+// uglyString.populate() - populate will go fetch an id and populate with an object (we are accessing the values by using the id)
+
+// uglyString.json() - this is a string format for an object
+
+// uglyString.parseJson() - reads a string and gives an object, doesn't go fetch anything using an id
 
 
 
